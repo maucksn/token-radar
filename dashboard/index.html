@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — Pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <div>
+      <p class="eyebrow">Token Radar</p>
+      <h1>Pre-token protocols, ranked by implied value</h1>
+      <p class="lede">Every protocol on this board has real locked value and no token on record yet. The radar scores each one with a single model — TVL, times a category multiple, times a growth multiplier, times a maturity multiplier — and ranks them by the implied value that comes out. The top of the board is where the farming is.</p>
+    </div>
+    <dl class="stats" id="stats">
+      <div><dt>Snapshot</dt><dd id="stat-asof">—</dd></div>
+      <div><dt>Protocols ranked</dt><dd id="stat-board">—</dd></div>
+      <div><dt>Farmable</dt><dd id="stat-farmable">—</dd></div>
+      <div><dt>Live tokens set aside</dt><dd id="stat-live">—</dd></div>
+      <div><dt>Model</dt><dd id="stat-model">—</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="controls" aria-label="Board controls">
+    <div class="field grow">
+      <label for="q">Search</label>
+      <input type="search" id="q" placeholder="Search name or slug…" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="chain">Chain</label>
+      <select id="chain"></select>
+    </div>
+    <div class="field">
+      <label for="category">Category</label>
+      <select id="category"></select>
+    </div>
+    <div class="field check">
+      <label class="toggle"><input type="checkbox" id="top40"> <span>Top 40 only</span></label>
+    </div>
+    <div class="field tabs" role="tablist" aria-label="Token status">
+      <button type="button" id="tab-pre" role="tab" aria-selected="true">Pre-token board</button>
+      <button type="button" id="tab-live" role="tab" aria-selected="false">Live tokens</button>
+    </div>
+  </section>
+
+  <p class="count" id="count" aria-live="polite"></p>
+
+  <div class="table-wrap">
+    <table id="board">
+      <thead>
+        <tr>
+          <th scope="col"><button type="button" data-sort="rank">Rank <span class="arrow" data-arrow="rank"></span></button></th>
+          <th scope="col"><button type="button" data-sort="name">Protocol <span class="arrow" data-arrow="name"></span></button></th>
+          <th scope="col">Category</th>
+          <th scope="col">Chains</th>
+          <th scope="col"><button type="button" data-sort="tvl">TVL <span class="arrow" data-arrow="tvl"></span></button></th>
+          <th scope="col"><button type="button" data-sort="change">7d <span class="arrow" data-arrow="change"></span></button></th>
+          <th scope="col"><button type="button" data-sort="implied">Implied value <span class="arrow" data-arrow="implied"></span></button></th>
+          <th scope="col"><button type="button" data-sort="age">Age <span class="arrow" data-arrow="age"></span></button></th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <section class="model-note">
+    <h2>How the model works</h2>
+    <p id="model-text"></p>
+    <p class="muted">Implied value is the model's own claim, not a price and not a promise of a token. A protocol can sit high on this board for years and never launch one. Farm only what you can afford to leave locked.</p>
+  </section>
+</main>
+
+<dialog id="detail" class="detail" aria-labelledby="detail-title">
+  <div class="detail-head">
+    <div>
+      <p class="eyebrow" id="detail-kicker"></p>
+      <h2 id="detail-title"></h2>
+      <p class="muted" id="detail-sub"></p>
+    </div>
+    <button type="button" class="close" id="detail-close">Close ✕</button>
+  </div>
+  <div class="detail-body">
+    <section>
+      <h3>Model breakdown</h3>
+      <table class="breakdown">
+        <tbody id="detail-breakdown"></tbody>
+      </table>
+      <p class="muted" id="detail-check"></p>
+    </section>
+    <section>
+      <h3>Farm plan — 8 steps</h3>
+      <ol class="steps" id="detail-steps"></ol>
+    </section>
+  </div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Data source: DefiLlama protocol snapshot, 2026-11-14. Implied values are computed by this radar's own model from that snapshot; they are estimates, not market prices.</p>
+    <p class="muted">Token Radar renders entirely offline from the snapshot file next to it. No network requests are made.</p>
+  </div>
+</footer>
+
+<p class="noscript" id="noresults" hidden></p>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
